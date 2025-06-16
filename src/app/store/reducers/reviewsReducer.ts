@@ -7,10 +7,10 @@ export interface ReviewsState {
 const reviewsReducer = createSlice({
     name: "reviews",
     initialState: {
-
+        test: "value"
     },
     reducers: {
-        retrieveData(state, action) {
+        retrieveReviews(state, action) {
             return state = { ...state, ...action.payload };
         },
     }
@@ -20,6 +20,6 @@ const reviewsReducer = createSlice({
 
 const { actions, reducer } = reviewsReducer;
 
-export const { retrieveData } = actions;
+export const { retrieveReviews } = actions;
 
 export default reducer;
