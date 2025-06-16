@@ -1,0 +1,16 @@
+@use "./styles/variables/variables.scss" as c;
+@import url("./styles/mixins/nostyle.scss");
+@import url("./page.scss");
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  background-color: c.$gray100;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
