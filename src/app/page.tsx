@@ -1,8 +1,17 @@
-import styles from "./page.module.css";
+import Goods from "./components/goods";
+import Reviews from "./components/rewievs";
+import ShoppingCart from "./components/shoppingCart";
 
 export default function Home() {
   return (
-    <div className={styles.page}>
+    <div className="page">
+      <header className="page__header">
+        <h1 className="page__title">тестовое задание</h1>
+      </header>
+
+      <Reviews />
+      <ShoppingCart></ShoppingCart>
+      <Goods></Goods>
     </div>
   );
 }
