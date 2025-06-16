@@ -12,7 +12,7 @@ const goodsReducer = createSlice({
     name: "goods",
     initialState: initialState,
     reducers: {
-        retrieveData(state, action) {
+        retrieveGoods(state, action) {
             return state = { ...state, images: { ...action.payload }, uploadCount: 3 };
         },
        
@@ -22,6 +22,6 @@ const goodsReducer = createSlice({
 
 const { actions, reducer } = goodsReducer;
 
-export const { retrieveData } = actions;
+export const { retrieveGoods } = actions;
 
 export default reducer;
