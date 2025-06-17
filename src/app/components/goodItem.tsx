@@ -1,34 +1,29 @@
 'use client'
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { updateOrder, updateOrderById } from "../store/reducers/shoppingCartReducer";
 
 export default function GoodItem(props: any) {
-    console.log(props);
-
+    var dispatch = useDispatch();
     var [isBought, setIsBought] = useState(false);
     var [count, setCount] = useState(1);
+    var inputRef = useRef(null);
 
     function buy() {
         setIsBought(true);
     }
 
-    var isCopyPaste = 0;
 
     function validate(e: any) {
-        console.log(e.key);
         if (e.key >= 0 || e.key <= 9) {
+            setCount(parseInt(inputRef.current.value));
         } else if (e.key == "Backspace" || e.key == "Delete") {
-        } else if (e.key == "Control" || e.key == "v" || e.key == 'c') {
-            isCopyPaste++;
-            if (isCopyPaste == 2) {
-                isCopyPaste = 0;
-            }
         } else {
             e.preventDefault();
         }
     }
 
     function minus() {
-
         if (count == 0) {
             setIsBought(false);
         } else {
@@ -38,7 +33,15 @@ export default function GoodItem(props: any) {
                 setCount(1);
             }
         }
+    }
 
+    function plus() {
+        setCount(count + 1)
+    }
+
+
+    function saveToOrder(e) {
+        // dispatch(updateOrder({ ...props, count: count }))
     }
 
     return <li className="goods-container__goods-item">
@@ -52,8 +55,8 @@ export default function GoodItem(props: any) {
             {isBought ?
                 <menu className="goods-container__item-menu nostyle-menu">
                     <button onClick={minus} className="goods-container__item-minus btn nostyle-btn" type="button">-</button>
-                    <input onKeyDown={validate} value={count} className="goods-container__item-count input nostyle-input" type="text"></input>
-                    <button onClick={() => setCount(count + 1)} className="goods-container__item-plus btn nostyle-btn" type="button">+</button>
+                    <input ref={inputRef} onKeyUp={(e) => { validate(e); }} defaultValue={count} onChange={saveToOrder} className="goods-container__item-count input nostyle-input" type="text"></input>
+                    <button onClick={plus} className="goods-container__item-plus btn nostyle-btn" type="button">+</button>
                 </menu> :
                 <button className="goods-container__item-btn btn nostyle-btn" onClick={buy}>купить</button>}
         </form>
