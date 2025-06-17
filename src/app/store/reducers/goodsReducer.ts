@@ -1,17 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { GoodsList } from "../models/Goods";
+import { Good, GoodsList } from "../models/Goods";
 import { fetchGoods } from "../thunks";
 
 interface InitialState {
     isPending: boolean;
     error: string | undefined;
-    goodsList: GoodsList[];
+    items: Good[]
 }
 
 const initialState: InitialState = {
     isPending: false,
     error: "",
-    goodsList: [],
+    items: []
 };
 
 
@@ -25,7 +25,7 @@ const goodsReducer = createSlice({
             state.isPending = true;
         })
             .addCase(fetchGoods.fulfilled, (state, action) => {
-                state.goodsList = [...state.goodsList, action.payload];
+                state.items = [...state.items, ...action.payload.items];
                 state.isPending = false;
             })
             .addCase(fetchGoods.rejected, (state, action) => {
