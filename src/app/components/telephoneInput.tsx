@@ -66,8 +66,8 @@ export default function TelephoneInput(props: any) {
 
 
 
-    return <input className="telephone-input" type="text"
+    return <input className="shopping-cart-container__input input nostyle-input" type="text"
         ref={inputRef}
-        value={inputValue}
+        defaultValue={inputValue}
         onKeyDown={onInput} />
 }
