@@ -5,8 +5,8 @@ const ignoreKeys = {
 
 }
 
-export default function TelephoneInput(props) {
-    var inputRef = useRef(null);
+export default function TelephoneInput(props: any) {
+    var inputRef = useRef(null) as any;
     var [inputValue, setInputValue] = useState(props.value);
 
     function replaceChar(idx: number, foInsert: string, value: string) {

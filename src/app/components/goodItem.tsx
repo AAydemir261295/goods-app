@@ -13,7 +13,7 @@ export default function GoodItem(props: any) {
 
     var isCopyPaste = 0;
 
-    function validate(e) {
+    function validate(e: any) {
         console.log(e.key);
         if (e.key >= 0 || e.key <= 9) {
         } else if (e.key == "Backspace" || e.key == "Delete") {
