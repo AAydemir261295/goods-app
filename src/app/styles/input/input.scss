@@ -1,0 +1,9 @@
+@use "../variables/variables.scss" as c;
+
+.input {
+    text-align: center;
+    border-radius: 15px;
+    background-color: c.$gray100;
+    color: c.$white;
+    font-size: 30px;
+}
