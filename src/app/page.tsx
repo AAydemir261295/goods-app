@@ -12,7 +12,7 @@ export default function Home() {
         <header className="page__header">
           <h1 className="page__title">тестовое задание</h1>
         </header>
-        <Reviews />
+        {/* <Reviews /> */}
         <ShoppingCart></ShoppingCart>
         <Goods></Goods>
       </div>
