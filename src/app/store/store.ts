@@ -1,16 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { apiSlice } from "./apiSlice";
-import shoppingCartReducer from "./shoppingCartReducer";
+import shoppingCartReducer from "./reducers/shoppingCartReducer";
+import goodsReducer from "./reducers/goodsReducer";
+import reviewsReducer from "./reducers/reviewsReducer";
 
 export const makeStore = () => {
     return configureStore({
         reducer: {
-            shoppingCart: shoppingCartReducer,
-            [apiSlice.reducerPath]: apiSlice.reducer,
-        },
-        middleware: getDefaultMiddleware =>
-            getDefaultMiddleware().concat(apiSlice.middleware)
-
+            cart: shoppingCartReducer,
+            goods: goodsReducer,
+            reviews: reviewsReducer
+        }
     })
 }
 
