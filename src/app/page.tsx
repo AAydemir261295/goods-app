@@ -6,19 +6,17 @@ import StoreProvider from "./store/storeProvider";
 
 export default function Home() {
 
-  // var store = useAppSelector(state => state.reviews);
-
-  // console.log(store);
   return (
-    <div className="page">
-      <header className="page__header">
-        <h1 className="page__title">тестовое задание</h1>
-      </header>
-      <StoreProvider>
+    <StoreProvider>
+      <div className="page">
+        <header className="page__header">
+          <h1 className="page__title">тестовое задание</h1>
+        </header>
         <Reviews />
         <ShoppingCart></ShoppingCart>
         <Goods></Goods>
-      </StoreProvider>
-    </div>
+      </div>
+    </StoreProvider>
+
   );
 }
