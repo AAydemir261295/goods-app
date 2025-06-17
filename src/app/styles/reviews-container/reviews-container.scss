@@ -9,8 +9,10 @@
     &__reviews {}
 
     &__reviews-item {
+        background-color: c.$gray50;
+        border-radius: 15px;
         font-family: c.$font;
-        color: c.$white;
+        color: c.$black;
     }
 
     &__reviews-content {}
@@ -28,9 +30,31 @@
         height: 650px;
         margin-top: 50px;
 
-        &__reviews-item {
-            // background-color: red;
+        &__reviews {
+            display: flex;
+            flex-direction: row;
+            width: 1000px;
+            min-height: 65px;
+            overflow: scroll;
         }
+
+        &__reviews-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 448px;
+            height: fit-content;
+            margin-right: 20px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        &__reviews-item h1 {
+            text-align: center;
+            height: fit-content;
+        }
+
+        &__reviews-item p {}
     }
 
 }
