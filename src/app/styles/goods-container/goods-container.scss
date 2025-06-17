@@ -1,9 +1,72 @@
-.goods-container {
+@use "../variables/variables.scss" as c;
 
+.goods-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    width: 100%;
+
+    &__goods-list {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    &__goods-item {
+        background-color: c.$gray50;
+        border-radius: 15px;
+    }
 }
 
 
-@media screen and (min-width: 296px) and (max-width: 500px) {}
-@media screen and (min-width: 500px) and (max-width: 900px) {}
+@media screen and (min-width: 332px) and (max-width: 660px) {
+
+    .goods-container {
+
+        &__goods-list {
+            width: 301px;
+        }
+
+        &__goods-item {
+            width: 301px;
+            height: 812px;
+            margin-bottom: 20px;
+        }
+
+    }
+}
+
+@media screen and (min-width: 660px) and (max-width: 900px) {
+
+    .goods-container {
+
+        &__goods-list {
+            width: 622px;
+            gap: 20px;
+        }
+
+        &__goods-item {
+            width: 301px;
+            height: 812px;
+
+        }
+
+    }
+}
+
 @media screen and (min-width: 900px) {
+
+    .goods-container {
+
+        &__goods-list {
+            width: 943px;
+            gap: 20px;
+        }
+
+        &__goods-item {
+            width: 301px;
+            height: 812px;
+        }
+
+    }
 }
