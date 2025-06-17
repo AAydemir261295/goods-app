@@ -1,0 +1,8 @@
+@use "../variables/variables.scss" as c;
+
+.btn {
+    border-radius: 15px;
+    background-color: c.$gray100;
+    color: c.$white;
+    font-size: 30px;    
+}
