@@ -1,0 +1,36 @@
+@use "../../styles/variables/variables.scss" as c;
+
+.reviews-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &__reviews {}
+
+    &__reviews-item {
+        font-family: c.$font;
+        color: c.$white;
+    }
+
+    &__reviews-content {}
+}
+
+
+
+@media screen and (min-width: 296px) and (max-width: 500px) {}
+
+@media screen and (min-width: 500px) and (max-width: 900px) {}
+
+@media screen and (min-width: 900px) {
+    .reviews-container {
+        width: 1000px;
+        height: 650px;
+        margin-top: 50px;
+
+        &__reviews-item {
+            // background-color: red;
+        }
+    }
+
+}
