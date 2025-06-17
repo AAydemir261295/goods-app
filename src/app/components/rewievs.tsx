@@ -9,8 +9,6 @@ import Loader from "./loader";
 
 export default function Reviews() {
 
-    var items: ReactNode[] = [];
-
     const {
         data: reviews = [],
         isLoading,
@@ -25,7 +23,7 @@ export default function Reviews() {
             <Loader></Loader> :
             <ul className="reviews-container__reviews nostyle-list">
                 {reviews.map((v) =>
-                    <ReviewItem id={v.id} inner={dompurify.sanitize(v.text, { FORCE_BODY: true })}
+                    <ReviewItem key={v.id} id={v.id} inner={dompurify.sanitize(v.text, { FORCE_BODY: true })}
                     />)
                 }
             </ul>
