@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { apiSlice } from "./apiSlice";
+import shoppingCartReducer from "./shoppingCartReducer";
 
 export const makeStore = () => {
     return configureStore({
         reducer: {
+            shoppingCart: shoppingCartReducer,
             [apiSlice.reducerPath]: apiSlice.reducer,
         },
         middleware: getDefaultMiddleware =>
