@@ -1,12 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Good } from "../models/Goods";
 
-interface initialState {
+interface InitialState {
     goods: Good[],
     telephone: string
 }
 
-const initialState = {
+const initialState: InitialState = {
     goods: [],
     telephone: ""
 }
@@ -17,6 +17,12 @@ const shoppingCartReducer = createSlice({
     reducers: {
         updateCart(state, action) {
             return state = { ...state, goods: { ...action.payload.goods }, telephone: action.payload.telephone };
+        },
+        updateOrder(state, action: { payload: Good }) {
+            return state = { ...state, goods: state.goods.map((v: Good) => v.id == action.payload.id ? action.payload : v) }
+        },
+        updatePhoneNumber(state, action: { payload: string }) {
+            return state = { ...state, telephone: action.payload }
         }
     }
 });
@@ -24,6 +30,6 @@ const shoppingCartReducer = createSlice({
 
 const { actions, reducer } = shoppingCartReducer;
 
-export const { updateCart } = actions;
+export const { updateCart, updateOrder, updatePhoneNumber } = actions;
 
 export default reducer;
