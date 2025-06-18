@@ -1,13 +1,19 @@
 'use client'
-import { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
-import { removeGood, updateOrder } from "../store/reducers/shoppingCartReducer";
+import { useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { removeGood, ShoppingCartState, updateOrder } from "../store/reducers/shoppingCartReducer";
+import { Good } from "../store/models/Goods";
 
 export default function GoodItem(props: any) {
     var dispatch = useDispatch();
-    var [isBought, setIsBought] = useState(false);
-    var [count, setCount] = useState(1);
-    var inputRef = useRef(null);
+    var goods = useSelector((state: { cart: ShoppingCartState }) => state.cart.goods);
+    var [isBought, setIsBought] = useState(goods.find((v: Good) => v.id == props.id) == undefined ? false : true);
+    var [count, setCount] = useState(isBought ? goods.find((v: Good) => v.id == props.id).count : 1);
+    var inputRef = useRef(null) as any;
+
+    function saveToShoppingCart(count: number) {
+        dispatch(updateOrder({ ...props, count: count, price: props.price * count }))
+    }
 
     function buy() {
         saveToShoppingCart(1)
@@ -33,17 +39,12 @@ export default function GoodItem(props: any) {
         setCount(count + 1);
     }
 
-    function saveToShoppingCart(count: number) {
-        dispatch(updateOrder({ ...props, count: count, price: props.price * count }))
-    }
 
-    function onInputChange(e) {
+
+    function onInputChange(e: any) {
         var inputValue = e.nativeEvent.data;
         var inputType = e.nativeEvent.inputType;
-        console.log(e.nativeEvent);
-        console.log(inputType == "deleteContentBackward");
         if (inputType == "deleteContentForward" || inputType == "deleteContentBackward") {
-            console.log(count);
             if (count >= 10) {
                 var tmp2: string = count + "";
                 var result = +tmp2.slice(0, tmp2.length - 1)
@@ -56,6 +57,8 @@ export default function GoodItem(props: any) {
             setCount(count);
         }
     }
+
+
 
     return <li className="goods-container__goods-item">
         <figure className="goods-container__goods-figure">
