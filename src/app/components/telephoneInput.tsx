@@ -1,18 +1,20 @@
 'use client'
 import { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
-import { updatePhoneNumber } from "../store/reducers/shoppingCartReducer";
+import { useDispatch, useSelector } from "react-redux";
+import { ShoppingCartState, updatePhoneNumber } from "../store/reducers/shoppingCartReducer";
 
 export default function TelephoneInput(props: any) {
+
     var dispatch = useDispatch();
     var inputRef = useRef(null) as any;
-    var [inputValue, setInputValue] = useState(props.value);
-    var [className, setClassName] = useState(`shopping-cart-container__input input nostyle-input ${props.showError}`)
+    var inputValue = useSelector((state: { cart: ShoppingCartState }) => state.cart.telephone);
+    var [telephoneValue, setTelephoneValue] = useState(inputValue);
+    var [className, setClassName] = useState(`shopping-cart-container__input input nostyle-input`)
 
     useEffect(() => {
         setClassName(`shopping-cart-container__input input nostyle-input ${props.showError}`);
-        dispatch(updatePhoneNumber(inputValue));
-    }, [inputValue])
+        dispatch(updatePhoneNumber(telephoneValue));
+    }, [telephoneValue, props.showError])
 
     function replaceChar(idx: number, foInsert: string, value: string) {
         var index = idx - 1;
@@ -28,46 +30,40 @@ export default function TelephoneInput(props: any) {
     function onInput(e: any) {
         e.preventDefault();
         var pressedKey = e.key;
-        var value = inputRef.current.value;
-        var inputLen = value.length;
-        var lastChar = value.charAt(inputLen - 1);
+        var inputLen = telephoneValue.length;
+        var lastChar = telephoneValue.charAt(inputLen - 1);
 
-        if (inputLen <= 18) {
-            if (pressedKey >= 0 && pressedKey <= 9 && lastChar == "_") {
-                var replaceIndex = value.indexOf("_") + 1;
-                var insertingChar = pressedKey;
-                var inserted = replaceChar(
-                    replaceIndex,
-                    insertingChar,
-                    value
-                );
-                var temp = removeCharAt(inserted, replaceIndex + 1);
-                setInputValue(temp);
-                props.setPhoneValue(temp);
-             
+        if (pressedKey >= 0 && pressedKey <= 9 && lastChar == "_") {
+            var replaceIndex = telephoneValue.indexOf("_") + 1;
+            var insertingChar = pressedKey;
+            var inserted = replaceChar(
+                replaceIndex,
+                insertingChar,
+                telephoneValue
+            );
+            var temp = removeCharAt(inserted, replaceIndex + 1);
+            setTelephoneValue(temp);
+        } else if (e.keyCode == 8) {
+            var isContain = telephoneValue.indexOf("_");
+            var length = isContain == -1 ? inputLen : isContain;
 
-            } else if (e.keyCode == 8) {
-                var isContain = value.indexOf("_");
-                var length = isContain == -1 ? inputLen : isContain;
-
-                for (let q = length; 4 < length; q--) {
-                    const charz = value.charAt(q - 1);
-                    if (
-                        charz != "_" &&
-                        charz != "-" &&
-                        charz != "(" &&
-                        charz != ")" &&
-                        charz != " "
-                    ) {
-                        var removed = removeCharAt(value, q);
-                        var afterDelete = replaceChar(q, "_", removed);
-                        setInputValue(afterDelete);
-                        props.setPhoneValue(afterDelete);
-                        break;
-                    }
+            for (let q = length; 4 < length; q--) {
+                const charz = telephoneValue.charAt(q - 1);
+                if (
+                    charz != "_" &&
+                    charz != "-" &&
+                    charz != "(" &&
+                    charz != ")" &&
+                    charz != " "
+                ) {
+                    var removed = removeCharAt(telephoneValue, q);
+                    var afterDelete = replaceChar(q, "_", removed);
+                    setTelephoneValue(afterDelete);
+                    break;
                 }
             }
         }
+        // }
         props.setErrorState("");
     }
 
@@ -76,7 +72,9 @@ export default function TelephoneInput(props: any) {
 
     return <input className={className}
         ref={inputRef}
-        defaultValue={inputValue}
-        onKeyDown={onInput}
+        defaultValue={telephoneValue}
+        value={telephoneValue}
+        onKeyDown={(e) => e.preventDefault()}
+        onKeyUp={onInput}
         type="text" />
 }
