@@ -32,6 +32,9 @@ const shoppingCartReducer = createSlice({
         },
         updatePhoneNumber(state, action: { payload: string }) {
             return state = { ...state, telephone: action.payload }
+        },
+        resetState(state) {
+            return state = { goods: [], telephone: '+7 (___) ___ __-__' }
         }
     }
 });
@@ -39,6 +42,6 @@ const shoppingCartReducer = createSlice({
 
 const { actions, reducer } = shoppingCartReducer;
 
-export const { setCart, updateOrder, removeGood, updatePhoneNumber } = actions;
+export const { setCart, updateOrder, removeGood, updatePhoneNumber, resetState } = actions;
 
 export default reducer;
