@@ -1,0 +1,143 @@
+@use "../variables/variables.scss" as c;
+
+.modal {
+    position: fixed;
+    background-color: c.$gray50;
+    border-radius: 15px;
+    align-self: center;
+    top: 0px;
+
+    &__title {
+        margin-top: 40px;
+        text-align: center;
+        font-family: c.$font;
+    }
+
+    &__close {
+        cursor: pointer;
+        position: absolute;
+        // top: 5px;
+        // left: 175px;
+        background-color: c.$gray70;
+        color: c.$gray50;
+        width: 150px;
+        height: 25px;
+        border-radius: 15px;
+        text-align: center;
+
+    }
+}
+
+
+
+@media screen and (min-width: 296px) and (max-width: 500px) {
+
+    .modal {
+        width: 320px;
+        height: 135px;
+    transform: translateY(-135px);
+
+
+        &__close {
+            top: 5px;
+            left: 85px;
+        }
+
+    }
+
+    @keyframes slideIn {
+        from {
+            transform: translateY(-135px);
+        }
+
+        to {
+            transform: translateY(7px);
+        }
+    }
+
+    @keyframes slideOut {
+        from {
+            transform: translateY(7px);
+        }
+
+        to {
+            transform: translateY(-135px);
+        }
+
+    }
+}
+
+@media screen and (min-width: 500px) and (max-width: 900px) {
+
+    .modal {
+        width: 500px;
+        height: 100px;
+        transform: translateY(-100px);
+
+        &__close {
+            top: 5px;
+            left: 175px;
+        }
+
+    }
+
+
+
+    @keyframes slideIn {
+        from {
+            transform: translateY(-100px);
+        }
+
+        to {
+            transform: translateY(30px);
+        }
+    }
+
+    @keyframes slideOut {
+        from {
+            transform: translateY(30px);
+        }
+
+        to {
+            transform: translateY(-100px);
+        }
+
+    }
+}
+
+@media screen and (min-width: 900px) {
+
+    .modal {
+        width: 500px;
+        height: 100px;
+        transform: translateY(-100px);
+
+        &__close {
+            top: 5px;
+            left: 175px;
+        }
+
+
+    }
+
+    @keyframes slideIn {
+        from {
+            transform: translateY(-100px);
+        }
+
+        to {
+            transform: translateY(30px);
+        }
+    }
+
+    @keyframes slideOut {
+        from {
+            transform: translateY(30px);
+        }
+
+        to {
+            transform: translateY(-100px);
+        }
+
+    }
+}
