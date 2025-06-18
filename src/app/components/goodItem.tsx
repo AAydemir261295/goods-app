@@ -59,7 +59,9 @@ export default function GoodItem(props: any) {
 
     return <li className="goods-container__goods-item">
         <figure className="goods-container__goods-figure">
-            <img className="goods-container__item-image" src={props.imageSrc} alt="" />
+            <div className="goods-container__image-wrapp">
+                <img className="goods-container__item-image" src={props.imageSrc} alt="" />
+            </div>
             <figcaption className="goods-container__item-image-caption">{props.title}</figcaption>
         </figure>
         <p className="goods-container__item-description">{props.description}</p>
