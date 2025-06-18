@@ -6,6 +6,7 @@ import { Good } from "../store/models/Goods";
 
 export default function GoodItem(props: any) {
     var dispatch = useDispatch();
+    
     var goods = useSelector((state: { cart: ShoppingCartState }) => state.cart.goods);
     var [isBought, setIsBought] = useState(goods.find((v: Good) => v.id == props.id) == undefined ? false : true);
     var [count, setCount] = useState(isBought ? goods.find((v: Good) => v.id == props.id).count : 1);
