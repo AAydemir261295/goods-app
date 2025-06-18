@@ -29,12 +29,12 @@ export default function ShoppingCart() {
             const body = { phone: cart.telephone, cart: items.map((v: Good) => { return { id: v.id, quantity: v.count } }) }
             console.log(body);
             if (body.cart.length > 0) {
-                var isBought = await sendBuyRequest(body);
-                if (isBought) {
+                // var isBought = await sendBuyRequest(body);
+                // if (isBought) {
                     setModalState(true);
-                    localStorage.removeItem("cart");
-                    dispatch(resetState());
-                }
+                    // localStorage.removeItem("cart");
+                    // dispatch(resetState());
+                // }
 
             }
 
@@ -53,7 +53,7 @@ export default function ShoppingCart() {
         <ul className="shopping-cart-container__order-list nostyle-list">
             {items.map((v: Good, idx: number) =>
                 <li key={idx} className="shopping-cart-container__order-row">
-                    <h3>{v.title}</h3>
+                    <h3 className="shopping-cart-container__order-title">{v.title}</h3>
                     <h3>{`x${v.count}`}</h3>
                     <h3>{`${v.price}₽`}</h3>
                 </li>
