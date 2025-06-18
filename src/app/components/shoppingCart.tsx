@@ -1,16 +1,19 @@
 'use client'
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Good } from "../store/models/Goods";
 import { useEffect, useState } from "react";
 import TelephoneInput from "./telephoneInput";
-import { ShoppingCartState } from "../store/reducers/shoppingCartReducer";
+import { resetState, ShoppingCartState } from "../store/reducers/shoppingCartReducer";
 import { sendBuyRequest } from "../backendApi/shoppingApi";
+import Modal from "./modal";
 
 
 export default function ShoppingCart() {
+    var dispatch = useDispatch();
     var cart = useSelector((state: { cart: ShoppingCartState }) => state.cart);
     var items = useSelector((state: { cart: ShoppingCartState }) => state.cart.goods);
     var [error, setError] = useState("");
+    var [modalState, setModalState] = useState(false);
 
     useEffect(() => {
         localStorage.setItem("cart", JSON.stringify(cart));
@@ -21,10 +24,19 @@ export default function ShoppingCart() {
         return cart.telephone.indexOf("_") == -1;
     }
 
-    function buy() {
+    async function buy() {
         if (isValidNumber()) {
             const body = { phone: cart.telephone, cart: items.map((v: Good) => { return { id: v.id, quantity: v.count } }) }
-            // sendBuyRequest()
+            console.log(body);
+            if (body.cart.length > 0) {
+                var isBought = await sendBuyRequest(body);
+                if (isBought) {
+                    setModalState(true);
+                    localStorage.removeItem("cart");
+                    dispatch(resetState());
+                }
+
+            }
 
         } else {
             setError("input--error");
@@ -34,6 +46,7 @@ export default function ShoppingCart() {
 
 
     return <div className="shopping-cart-container">
+        <Modal modalState={modalState} setModalState={setModalState} />
         <header className="shopping-cart-container__header">
             <h6 className="shopping-cart-container__title">Добавленные товары</h6>
         </header>
