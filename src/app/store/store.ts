@@ -1,14 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import shoppingCartReducer from "./reducers/shoppingCartReducer";
-import goodsReducer from "./reducers/goodsReducer";
-import reviewsReducer from "./reducers/reviewsReducer";
 
 export const makeStore = () => {
     return configureStore({
         reducer: {
             cart: shoppingCartReducer,
-            goods: goodsReducer,
-            reviews: reviewsReducer
         }
     })
 }
