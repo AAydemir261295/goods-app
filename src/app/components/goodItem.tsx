@@ -1,7 +1,7 @@
 'use client'
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { updateOrder, updateOrderById } from "../store/reducers/shoppingCartReducer";
+import { removeGood, updateOrder } from "../store/reducers/shoppingCartReducer";
 
 export default function GoodItem(props: any) {
     var dispatch = useDispatch();
@@ -10,25 +10,18 @@ export default function GoodItem(props: any) {
     var inputRef = useRef(null);
 
     function buy() {
+        saveToShoppingCart(1)
         setIsBought(true);
-    }
-
-
-    function validate(e: any) {
-        if (e.key >= 0 || e.key <= 9) {
-            setCount(parseInt(inputRef.current.value));
-        } else if (e.key == "Backspace" || e.key == "Delete") {
-        } else {
-            e.preventDefault();
-        }
     }
 
     function minus() {
         if (count == 0) {
             setIsBought(false);
         } else {
+            saveToShoppingCart(count - 1);
             setCount(count - 1);
             if (count == 1) {
+                dispatch(removeGood(props.id))
                 setIsBought(false);
                 setCount(1);
             }
@@ -36,12 +29,32 @@ export default function GoodItem(props: any) {
     }
 
     function plus() {
-        setCount(count + 1)
+        saveToShoppingCart(count + 1);
+        setCount(count + 1);
     }
 
+    function saveToShoppingCart(count: number) {
+        dispatch(updateOrder({ ...props, count: count, price: props.price * count }))
+    }
 
-    function saveToOrder(e) {
-        // dispatch(updateOrder({ ...props, count: count }))
+    function onInputChange(e) {
+        var inputValue = e.nativeEvent.data;
+        var inputType = e.nativeEvent.inputType;
+        console.log(e.nativeEvent);
+        console.log(inputType == "deleteContentBackward");
+        if (inputType == "deleteContentForward" || inputType == "deleteContentBackward") {
+            console.log(count);
+            if (count >= 10) {
+                var tmp2: string = count + "";
+                var result = +tmp2.slice(0, tmp2.length - 1)
+                saveToShoppingCart(result);
+                setCount(result);
+            }
+        } else if (!isNaN(+inputValue)) {
+            let count = +inputRef.current.value
+            saveToShoppingCart(count);
+            setCount(count);
+        }
     }
 
     return <li className="goods-container__goods-item">
@@ -55,7 +68,10 @@ export default function GoodItem(props: any) {
             {isBought ?
                 <menu className="goods-container__item-menu nostyle-menu">
                     <button onClick={minus} className="goods-container__item-minus btn nostyle-btn" type="button">-</button>
-                    <input ref={inputRef} onKeyUp={(e) => { validate(e); }} defaultValue={count} onChange={saveToOrder} className="goods-container__item-count input nostyle-input" type="text"></input>
+                    <input ref={inputRef}
+                        defaultValue={count}
+                        value={count}
+                        onChange={onInputChange} className="goods-container__item-count input nostyle-input" type="text"></input>
                     <button onClick={plus} className="goods-container__item-plus btn nostyle-btn" type="button">+</button>
                 </menu> :
                 <button className="goods-container__item-btn btn nostyle-btn" onClick={buy}>купить</button>}
