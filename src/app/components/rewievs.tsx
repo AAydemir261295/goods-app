@@ -1,32 +1,22 @@
-'use client'
-import { ReactNode, useEffect } from "react";
-import dompurify from 'dompurify';
 import ReviewItem from "./reviewItem";
-import Loader from "./loader";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchReviews } from "../store/thunks";
 import { Review } from "../store/models/Reviews";
+import DOMPurify from "isomorphic-dompurify";
+
+const apiUrl = `http://o-complex.com:1337/reviews`;
 
 
-
-export default function Reviews() {
-    var dispatch = useDispatch() as any;
-    var items = useSelector((state: any) => state.reviews.items);
-    var isLoading = useSelector((state: any) => state.reviews.isPending);
-
-    useEffect(() => {
-        // dispatch(fetchReviews());
-    }, [dispatch])
+export default async function Reviews() {
+    const data = await fetch(apiUrl)
+    var items = await data.json()
 
     return <div className="reviews-container">
-        {isLoading ?
-            <Loader></Loader> :
-            <ul className="reviews-container__reviews nostyle-list">
-                {items.map((v: Review) =>
-                    <ReviewItem key={v.id} id={v.id} inner={dompurify.sanitize(v.text, { FORCE_BODY: true })}
-                    />)
-                }
-            </ul>
-        }
+
+        <ul className="reviews-container__reviews nostyle-list">
+            {items.map((v: Review) =>
+                <ReviewItem key={v.id} id={v.id} inner={DOMPurify.sanitize(v.text, { FORCE_BODY: true })}
+                />)
+            }
+        </ul>
+
     </div>;
 }
