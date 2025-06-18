@@ -1,11 +1,14 @@
 @use "../variables/variables.scss" as c;
 
 .loader {
+    position: relative;
     border: 16px solid c.$gray70;
     border-radius: 50%;
     border-top: 16px solid c.$gray50;
     width: 60px;
     height: 60px;
+    bottom: -20px;
+    z-index: 15;
     animation: spin 2s linear infinite;
 }
 

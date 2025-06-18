@@ -6,4 +6,12 @@
     background-color: c.$gray100;
     color: c.$white;
     font-size: 30px;
+    // border: 
+}
+
+.input--error {
+    box-shadow: 5px 5px 0px 0px indianred,
+        -5px 5px 0px 0px indianred,
+        -5px -5px 0px 0px indianred,
+        5px -5px 0px 0px indianred,
 }

@@ -5,11 +5,15 @@
     flex-direction: column;
     align-items: center;
     margin-top: 20px;
+    padding-bottom: 30px;
     width: 100%;
+    overflow: hidden;
 
     &__goods-list {
+        position: relative;
         display: flex;
         flex-wrap: wrap;
+        z-index: 14;
     }
 
     &__goods-item {
@@ -82,11 +86,14 @@
     .goods-container {
 
         &__goods-list {
+            height: 800px;
             width: 331px;
+            overflow: auto;
+            scrollbar-width: thin;
         }
 
         &__goods-item {
-            width: 324px;
+            width: 317px;
             height: auto;
             margin-bottom: 20px;
         }
@@ -96,10 +103,21 @@
             height: 400px;
         }
 
-        &__item-image {
-            width: 349px;
-            height: 406px;
+        &__image-wrapp {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            height: fit-content;
+            border-radius: 15px;
+            overflow: hidden;
         }
+
+        &__item-image {
+            width: auto;
+            height: auto;
+        }
+
 
 
         &__item-description {
@@ -123,8 +141,11 @@
     .goods-container {
 
         &__goods-list {
+            height: 1500px;
             width: 622px;
             gap: 20px;
+            overflow: auto;
+
         }
 
         &__goods-item {
@@ -137,10 +158,21 @@
             height: 400px;
         }
 
-        &__item-image {
-            width: 321px;
-            height: 406px;
+        &__image-wrapp {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            height: fit-content;
+            border-radius: 15px;
+            overflow: hidden;
         }
+
+        &__item-image {
+            width: auto;
+            height: auto;
+        }
+
 
 
         &__item-description {
@@ -166,7 +198,9 @@
 
         &__goods-list {
             width: 943px;
+            height: 1500px;
             gap: 20px;
+            overflow: auto;
         }
 
         &__goods-item {
