@@ -8,7 +8,7 @@ export interface ShoppingCartState {
 
 const initialState: ShoppingCartState = JSON.parse(localStorage.getItem("cart")) == null ? {
     goods: [],
-    telephone: ""
+    telephone: '+7 (___) ___ __-__',
 } :
     JSON.parse(localStorage.getItem("cart"));
 
