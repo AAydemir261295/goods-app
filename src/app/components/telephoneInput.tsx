@@ -1,13 +1,18 @@
+'use client'
 import { useEffect, useRef, useState } from "react";
-import { start } from "repl";
-
-const ignoreKeys = {
-
-}
+import { useDispatch } from "react-redux";
+import { updatePhoneNumber } from "../store/reducers/shoppingCartReducer";
 
 export default function TelephoneInput(props: any) {
+    var dispatch = useDispatch();
     var inputRef = useRef(null) as any;
     var [inputValue, setInputValue] = useState(props.value);
+    var [className, setClassName] = useState(`shopping-cart-container__input input nostyle-input ${props.showError}`)
+
+    useEffect(() => {
+        setClassName(`shopping-cart-container__input input nostyle-input ${props.showError}`);
+        dispatch(updatePhoneNumber(inputValue));
+    }, [inputValue])
 
     function replaceChar(idx: number, foInsert: string, value: string) {
         var index = idx - 1;
@@ -39,6 +44,8 @@ export default function TelephoneInput(props: any) {
                 var temp = removeCharAt(inserted, replaceIndex + 1);
                 setInputValue(temp);
                 props.setPhoneValue(temp);
+             
+
             } else if (e.keyCode == 8) {
                 var isContain = value.indexOf("_");
                 var length = isContain == -1 ? inputLen : isContain;
@@ -61,13 +68,15 @@ export default function TelephoneInput(props: any) {
                 }
             }
         }
+        props.setErrorState("");
     }
 
 
 
 
-    return <input className="shopping-cart-container__input input nostyle-input" type="text"
+    return <input className={className}
         ref={inputRef}
         defaultValue={inputValue}
-        onKeyDown={onInput} />
+        onKeyDown={onInput}
+        type="text" />
 }
